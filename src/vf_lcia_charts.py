@@ -1,21 +1,8 @@
 #!/usr/bin/env python3
 # vf_lcia_charts.py
-# Generate LCIA charts from the workbook produced by vf_lcia_auto_capex.py
-#
-# Charts produced (saved to --outdir):
-# 1) totals_bar.<ext>                      - Total impact per category (per kg)
-# 2) by_stage_stacked_bar.<ext>            - Stacked bar of stages for each category (per kg) [multi-unit]
-# 3) gwp_stage_pie.<ext> or gwp_stage_bar.<ext> (auto) - GWP100 by stage
-# 4) normalized_radar.<ext>                - Radar chart of normalized totals (if Normalized_totals exists)
-# 5) top_flows_gwp100.<ext>                - Horizontal bar: top-N flows by GWP100 (per kg)
-# 6) by_stage_<CAT>_bar.<ext> (one per CAT) - Category-specific per-stage bars
-# 7) normalized_by_stage_stacked.<ext>     - Stacked (0–1) to compare stages across categories
-#
-# Usage:
-# python vf_lcia_charts.py -i VF_LCIA_ready_multiimpact.xlsx -o charts --fmt png --dpi 160 --topn 10 \
-#   --per-cat --logy-per-cat --normalized-by-stage
+# Generate LCIA charts and compile them into a single Markdown report.
 
-import argparse, os
+import argparse, os, re, glob
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -35,7 +22,11 @@ def chart_totals_bar(totals_df, outpath, fmt="png", dpi=160):
     df = totals_df.copy()
     if "perkg_total" not in df.columns and "perkg" in df.columns:
         df["perkg_total"] = df["perkg"]
+    if "category" not in df.columns:
+        return
     df = df.set_index("category").reindex(CATS).dropna()
+    if df.empty:
+        return
     plt.figure(figsize=(7,4))
     df["perkg_total"].plot(kind="bar")
     plt.ylabel("Impact per kg (category units)")
@@ -68,7 +59,7 @@ def _pie_group_small(s, min_slice_pct=0.02):
     large = s[share >= min_slice_pct]
     small = s[share < min_slice_pct]
     if small.sum() > 0:
-        large.loc["Other"] = small.sum()
+        large.loc["Other"] = float(small.sum())
     return large.sort_values(ascending=False)
 
 def chart_gwp_stage_pie_or_bar(by_stage_df, outpath, fmt="png", dpi=160, dominance_threshold=0.9, min_slice_pct=0.02, legend_pie=True):
@@ -146,7 +137,6 @@ def chart_top_flows(lcia_rows_df, outpath, fmt="png", dpi=160, topn=10, category
     plt.tight_layout(); plt.savefig(f"{outpath}/top_flows_{category.lower()}.{fmt}", dpi=dpi); plt.close()
 
 def chart_per_category_stage_bars(by_stage_df, outpath, fmt="png", dpi=160, logy=False):
-    """Generate a separate bar chart for each category vs stage."""
     df = by_stage_df.copy()
     if "stage" not in df.columns: return
     df = df.set_index("stage")
@@ -161,7 +151,6 @@ def chart_per_category_stage_bars(by_stage_df, outpath, fmt="png", dpi=160, logy
         plt.close()
 
 def chart_normalized_by_stage(by_stage_df, outpath, fmt="png", dpi=160):
-    """Stacked plot with each category normalized to its column max (0–1)."""
     df = by_stage_df.copy()
     if "stage" not in df.columns: return
     df = df.set_index("stage")
@@ -177,8 +166,133 @@ def chart_normalized_by_stage(by_stage_df, outpath, fmt="png", dpi=160):
     plt.savefig(f"{outpath}/normalized_by_stage_stacked.{fmt}", dpi=dpi)
     plt.close()
 
+# --------------------------
+# Markdown report generator
+# --------------------------
+def _exists(path): 
+    return os.path.exists(path)
+
+def _rel(path_from, to):
+    # return relative path from Markdown file location to target "to"
+    return os.path.relpath(to, start=os.path.dirname(path_from))
+
+def build_markdown(outdir, fmt, md_path, title="Vertical Farming LCIA – Charts"):
+    # Collect chart files
+    expect = [
+        ("Total Impact per Category (per kg)",           f"{outdir}/totals_bar.{fmt}"),
+        ("LCIA by Stage (stacked per category)",         f"{outdir}/by_stage_stacked_bar.{fmt}"),
+        ("GWP100 by Stage (per kg) – Pie/Bar",           f"{outdir}/gwp_stage_pie.{fmt}" if _exists(f"{outdir}/gwp_stage_pie.{fmt}") else f"{outdir}/gwp_stage_bar.{fmt}"),
+        ("Normalized Impacts (per kg) – Radar",          f"{outdir}/normalized_radar.{fmt}"),
+        ("Top flows by GWP100 (per kg)",                 f"{outdir}/top_flows_gwp100.{fmt}"),
+        ("Normalized LCIA by Stage (stacked 0–1)",       f"{outdir}/normalized_by_stage_stacked.{fmt}"),
+    ]
+    # Per-category stage bars
+    per_cat = sorted(glob.glob(os.path.join(outdir, f"by_stage_*_bar.{fmt}")))
+    # Build markdown
+    lines = []
+    lines.append(f"# {title}")
+    lines.append("")
+    lines.append("> This report is auto-generated from the LCIA workbook and includes every chart found in the output directory.")
+    lines.append("")
+    # TOC
+    lines.append("## Contents")
+    toc_items = [
+        ("totals", "Total Impact per Category"),
+        ("stacked", "LCIA by Stage (Stacked)"),
+        ("gwp", "GWP100 by Stage (Pie/Bar)"),
+        ("radar", "Normalized Radar (if available)"),
+        ("topflows", "Top Flows by GWP100"),
+    ]
+    if any("normalized_by_stage_stacked" in p for _, p in expect if p):
+        toc_items.append(("normstage", "Normalized by Stage (Stacked 0–1)"))
+    if per_cat:
+        toc_items.append(("percat", "Per-Category Stage Bars"))
+    for anchor, text in toc_items:
+        lines.append(f"- [{text}](#{anchor})")
+    lines.append("")
+
+    # Sections
+    # 1
+    lines.append("## Total Impact per Category {#totals}")
+    if _exists(expect[0][1]):
+        rel = _rel(md_path, expect[0][1])
+        lines.append(f"![Total impact per category]({rel})")
+    else:
+        lines.append("_Chart not generated._")
+    lines.append("")
+
+    # 2
+    lines.append("## LCIA by Stage (Stacked) {#stacked}")
+    if _exists(expect[1][1]):
+        rel = _rel(md_path, expect[1][1])
+        lines.append(f"![LCIA by Stage (stacked)]({rel})")
+    else:
+        lines.append("_Chart not generated._")
+    lines.append("")
+
+    # 3
+    lines.append("## GWP100 by Stage (Pie/Bar) {#gwp}")
+    gwp_path = expect[2][1]
+    if _exists(gwp_path):
+        rel = _rel(md_path, gwp_path)
+        lines.append(f"![GWP100 by stage]({rel})")
+    else:
+        lines.append("_Chart not generated._")
+    lines.append("")
+
+    # 4
+    lines.append("## Normalized Radar (if available) {#radar}")
+    if _exists(expect[3][1]):
+        rel = _rel(md_path, expect[3][1])
+        lines.append(f"![Normalized radar]({rel})")
+    else:
+        lines.append("_Chart not generated or normalization sheet missing._")
+    lines.append("")
+
+    # 5
+    lines.append("## Top Flows by GWP100 {#topflows}")
+    if _exists(expect[4][1]):
+        rel = _rel(md_path, expect[4][1])
+        lines.append(f"![Top flows by GWP100]({rel})")
+    else:
+        lines.append("_Chart not generated._")
+    lines.append("")
+
+    # 6 (optional)
+    if _exists(expect[5][1]):
+        lines.append("## Normalized by Stage (Stacked 0–1) {#normstage}")
+        rel = _rel(md_path, expect[5][1])
+        lines.append(f"![Normalized by Stage (stacked 0–1)]({rel})")
+        lines.append("")
+
+    # 7 per-category
+    if per_cat:
+        lines.append("## Per-Category Stage Bars {#percat}")
+        lines.append("_One chart per impact category showing per-stage values._")
+        lines.append("")
+        # Sort in CATS order if possible
+        def cat_key(p):
+            m = re.search(r"by_stage_(.+?)_bar\.", os.path.basename(p))
+            if not m: return (999, p)
+            cat = m.group(1)
+            try:
+                return (CATS.index(cat), p)
+            except ValueError:
+                return (998, p)
+        per_cat_sorted = sorted(per_cat, key=cat_key)
+        for p in per_cat_sorted:
+            cat = re.search(r"by_stage_(.+?)_bar\.", os.path.basename(p))
+            cat = cat.group(1) if cat else "Category"
+            rel = _rel(md_path, p)
+            lines.append(f"### {cat}")
+            lines.append(f"![{cat} by Stage]({rel})")
+            lines.append("")
+    # Write file
+    with open(md_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+
 def main():
-    ap = argparse.ArgumentParser(description="Generate LCIA charts from VF_LCIA_ready_multiimpact.xlsx")
+    ap = argparse.ArgumentParser(description="Generate LCIA charts from VF_LCIA_ready_multiimpact.xlsx and compile a Markdown report.")
     ap.add_argument("-i","--input", required=True, help="Path to LCIA workbook")
     ap.add_argument("-o","--outdir", default="charts", help="Directory to save charts")
     ap.add_argument("--fmt", default="png", choices=["png","pdf","svg"], help="Output image format")
@@ -190,6 +304,12 @@ def main():
     ap.add_argument("--per-cat", action="store_true", help="Generate category-specific per-stage bars")
     ap.add_argument("--logy-per-cat", action="store_true", help="Use log scale on per-category charts")
     ap.add_argument("--normalized-by-stage", action="store_true", help="Generate normalized-by-stage stacked chart")
+
+    # New: Markdown options
+    ap.add_argument("--write-md", action="store_true", help="Write a Markdown report that embeds all available charts")
+    ap.add_argument("--md-file", default="LCIA_charts_report.md", help="Markdown file path to write")
+    ap.add_argument("--md-title", default="Vertical Farming LCIA – Charts", help="Title for the Markdown report")
+
     args = ap.parse_args()
 
     safe_mkdir(args.outdir)
@@ -219,7 +339,17 @@ def main():
     if rows is not None and not rows.empty:
         chart_top_flows(rows, args.outdir, args.fmt, args.dpi, args.topn, category="GWP100")
 
+    # Build Markdown if requested
+    if args.write_md:
+        md_path = args.md_file
+        # If user passes only a filename, place it next to outdir for easy linking
+        if not os.path.isabs(md_path):
+            md_path = os.path.join(os.getcwd(), md_path)
+        build_markdown(args.outdir, args.fmt, md_path, title=args.md_title)
+
     print(f"✅ Charts written to: {os.path.abspath(args.outdir)}")
+    if args.write_md:
+        print(f"📝 Markdown report: {os.path.abspath(args.md_file)}")
 
 if __name__ == "__main__":
     main()

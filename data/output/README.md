@@ -17,17 +17,6 @@ python vf_lcia_auto_capex.py \
   --write-readme
 ```
 
-## plots
-```bash
-python src/vf_lcia_charts.py \
-  -i data/output/VF_LCIA_ready_multiimpact.xlsx \
-  -o data/output/charts \
-  --fmt png --dpi 160 \
-  --legend-pie --dominance-threshold 0.9 --min-slice-pct 0.02 \
-  --per-cat --logy-per-cat \
-  --normalized-by-stage
-```
-
 ## Output sheets
 Inputs_*, Derived_perkg, **LCI_perkg**, Annual_inventory, EF_Defaults,
 **LCIA_rows_multi**, **LCIA_by_stage**, **LCIA_totals_multi**,
