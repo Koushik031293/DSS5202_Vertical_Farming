@@ -63,12 +63,20 @@ Run the automation script to compute **LCIA totals**, **stage-wise impacts**, an
 
 ### 🔹 Vertical Farming (VF)
 ```bash
-python src/VF_TF_lcia_auto_capex.py   -i data/input/Corrected_Base_Data_Singapore.xlsx   -s VF   -o data/output/VF_LCIA_ready_multiimpact.xlsx   --write-readme
+python src/VF_TF_lcia_auto_capex.py
+-i data/input/Corrected_Base_Data_Singapore.xlsx
+-s VF
+-o data/output/VF_LCIA_ready_multiimpact.xlsx
+--write-readme
 ```
 
 ### 🔹 Traditional Farming (TF)
 ```bash
-python src/VF_TF_lcia_auto_capex.py   -i data/input/Corrected_Base_Data_Singapore.xlsx   -s TF   -o data/output/TF_LCIA_ready_multiimpact.xlsx   --write-readme
+python src/VF_TF_lcia_auto_capex.py
+-i data/input/Corrected_Base_Data_Singapore.xlsx
+-s TF
+-o data/output/TF_LCIA_ready_multiimpact.xlsx
+--write-readme
 ```
 
 ✅ **Outputs generated:**
@@ -84,12 +92,28 @@ Use the unified chart generator to visualize total and stage-wise environmental 
 
 ### 🔹 Vertical Farm Charts
 ```bash
-python src/lcia_charts_unified.py   -i data/output/VF_LCIA_ready_multiimpact.xlsx   -o charts_both   --label VF   --per-cat --normalized-by-stage   --write-md --md-file VF_report.md --md-title "Vertical Farm LCIA – Charts"   --images-only-pdf
+python src/lcia_charts_unified.py
+-i data/output/VF_LCIA_ready_multiimpact.xlsx
+-o charts_both
+--label VF
+--per-cat --normalized-by-stage
+--write-md
+--md-file VF_report.md
+--md-title "Vertical Farm LCIA – Charts"
+--images-only-pdf
 ```
 
 ### 🔹 Traditional Farm Charts
 ```bash
-python src/lcia_charts_unified.py   -i data/output/TF_LCIA_ready_multiimpact.xlsx   -o charts_both   --label TF   --per-cat --normalized-by-stage   --write-md --md-file TF_report.md --md-title "Traditional Farm LCIA – Charts"   --images-only-pdf
+python src/lcia_charts_unified.py
+-i data/output/TF_LCIA_ready_multiimpact.xlsx
+-o charts_both
+--label TF
+--per-cat --normalized-by-stage
+--write-md
+--md-file TF_report.md
+--md-title "Traditional Farm LCIA – Charts"
+--images-only-pdf
 ```
 
 ✅ **Charts generated (examples):**
