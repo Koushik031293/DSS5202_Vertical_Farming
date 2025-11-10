@@ -1,6 +1,6 @@
-# 🌱 Vertical vs Traditional Farming — LCIA Automation & Visualization
+# 🌱 Sustainability Assessment of Vertical vs Traditional Farming Systems
 
-This repository automates **Life Cycle Impact Assessment (LCIA)** and **Life Cycle Costing (LCC)** analysis for **Singapore-based vertical and traditional farming systems**.  
+This repository automates **Life Cycle Impact Assessment (LCIA)** , **Life Cycle Costing (LCC)** and **Analytic Hierarchy Process (AHP)**  analysis for **Singapore-based vertical and traditional farming systems**.  
 It produces impact assessment workbooks and multi-format visualizations directly from structured Excel input data.
 
 ---
