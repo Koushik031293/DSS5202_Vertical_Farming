@@ -1,0 +1,204 @@
+================================================================================
+LIFE CYCLE COSTING (LCC) ANALYSIS REPORT
+Vertical Farming vs Traditional Greenhouse Farming
+================================================================================
+
+EXECUTIVE SUMMARY
+================================================================================
+
+Lower Cost System: Vertical Farm
+LCOv Difference: 0.58 SGD/kg (21.4% advantage)
+
+More Profitable System: Vertical Farm
+Annual Profit Difference: 40.5M SGD
+
+
+================================================================================
+DETAILED COST ANALYSIS
+================================================================================
+
+
+VERTICAL FARM:
+--------------------------------------------------------------------------------
+
+Initial CAPEX:                         49.50 Million SGD
+Annual CAPEX (annualized):              5.25 Million SGD
+Annual OPEX:                           38.29 Million SGD
+Total Annual Cost:                     43.54 Million SGD
+
+CAPEX per kg:                          0.328 SGD/kg
+OPEX per kg:                           2.393 SGD/kg
+LCOv (Total):                          2.721 SGD/kg
+
+Product Price:                          6.00 SGD/kg
+Annual Output:                         16.00 Million kg
+Annual Revenue:                        96.00 Million SGD
+Annual Profit:                         52.46 Million SGD
+Profit Margin:                          54.6 %
+
+
+TRADITIONAL FARM:
+--------------------------------------------------------------------------------
+
+Initial CAPEX:                         12.30 Million SGD
+Annual CAPEX (annualized):              1.51 Million SGD
+Annual OPEX:                           31.53 Million SGD
+Total Annual Cost:                     33.04 Million SGD
+
+CAPEX per kg:                          0.151 SGD/kg
+OPEX per kg:                           3.153 SGD/kg
+LCOv (Total):                          3.304 SGD/kg
+
+Product Price:                          4.50 SGD/kg
+Annual Output:                         10.00 Million kg
+Annual Revenue:                        45.00 Million SGD
+Annual Profit:                         11.96 Million SGD
+Profit Margin:                          26.6 %
+
+
+================================================================================
+CAPEX BREAKDOWN
+================================================================================
+
+
+Vertical Farm:
+--------------------------------------------------------------------------------
+Asset                                       Cost (M SGD)          %   Lifetime
+--------------------------------------------------------------------------------
+LED lighting systems                               25.00       50.5         20
+Land lease (20yr)                                  10.00       20.2         20
+HVAC & dehumidification                             8.00       16.2         15
+Building fit-out                                    3.00        6.1         20
+Vertical racking structure                          1.20        2.4         20
+Automation & controls                               1.00        2.0         10
+Pumps & irrigation                                  0.80        1.6         10
+Cold storage                                        0.50        1.0         15
+--------------------------------------------------------------------------------
+TOTAL                                              49.50      100.0
+
+
+Traditional Farm:
+--------------------------------------------------------------------------------
+Asset                                       Cost (M SGD)          %   Lifetime
+--------------------------------------------------------------------------------
+Land lease (15yr)                                   5.40       43.9         15
+Greenhouse structure                                3.00       24.4         15
+Farm equipment                                      0.80        6.5         15
+Shade nets & covers                                 0.80        6.5         10
+Irrigation system                                   0.60        4.9         10
+Land preparation                                    0.50        4.1         15
+Fans & ventilation                                  0.50        4.1         10
+Pumps & water tanks                                 0.40        3.3         10
+Storage shed                                        0.30        2.4         15
+--------------------------------------------------------------------------------
+TOTAL                                              12.30      100.0
+
+
+================================================================================
+OPEX BREAKDOWN
+================================================================================
+
+
+Vertical Farm:
+--------------------------------------------------------------------------------
+Item                                              SGD/kg          %        M SGD/yr
+--------------------------------------------------------------------------------
+Labor                                              0.900       37.6           14.40
+Electricity - Lighting                             0.336       14.0            5.38
+Distribution                                       0.250       10.4            4.00
+Electricity - HVAC                                 0.224        9.4            3.58
+Packaging                                          0.200        8.4            3.20
+Maintenance                                        0.150        6.3            2.40
+Insurance & admin                                  0.100        4.2            1.60
+Nutrients (NPK)                                    0.080        3.3            1.28
+Growing media                                      0.050        2.1            0.80
+Water supply                                       0.041        1.7            0.66
+Wastewater                                         0.032        1.3            0.51
+CO2 supply                                         0.030        1.3            0.48
+--------------------------------------------------------------------------------
+TOTAL                                              2.393      100.0           38.29
+
+
+Traditional Farm:
+--------------------------------------------------------------------------------
+Item                                              SGD/kg          %        M SGD/yr
+--------------------------------------------------------------------------------
+Labor                                              2.000       63.4           20.00
+Water supply                                       0.219        6.9            2.19
+Distribution                                       0.160        5.1            1.60
+Packaging                                          0.150        4.8            1.50
+Electricity                                        0.140        4.4            1.40
+Wastewater                                         0.129        4.1            1.29
+Fertilizer                                         0.100        3.2            1.00
+Insurance & admin                                  0.080        2.5            0.80
+Pesticide                                          0.075        2.4            0.75
+Maintenance                                        0.050        1.6            0.50
+Seeds/seedlings                                    0.050        1.6            0.50
+--------------------------------------------------------------------------------
+TOTAL                                              3.153      100.0           31.53
+
+
+================================================================================
+BREAKEVEN ANALYSIS
+================================================================================
+
+
+Vertical Farm:
+--------------------------------------------------------------------------------
+Breakeven Production:                   1.46 Million kg/yr
+Breakeven Price:                        2.72 SGD/kg
+Capacity Utilization @BE:                9.1 %
+
+
+Traditional Farm:
+--------------------------------------------------------------------------------
+Breakeven Production:                   1.12 Million kg/yr
+Breakeven Price:                        3.30 SGD/kg
+Capacity Utilization @BE:               11.2 %
+
+
+================================================================================
+SCENARIO ANALYSIS
+================================================================================
+
+Scenario             System                       LCOv      Profit (M)
+--------------------------------------------------------------------------------
+Optimistic           Vertical Farm                2.33            69.8
+Optimistic           Traditional Farm             2.82            21.0
+
+Baseline             Vertical Farm                2.72            52.5
+Baseline             Traditional Farm             3.30            12.0
+
+Pessimistic          Vertical Farm                3.12            37.2
+Pessimistic          Traditional Farm             3.79             4.3
+
+
+================================================================================
+COMPARATIVE RATIOS (VF / TF)
+================================================================================
+
+CAPEX Ratio:                            4.02x
+OPEX per kg Ratio:                      0.76x
+LCOv Ratio:                             0.82x
+Output Ratio:                           1.60x
+Profit Ratio:                           4.39x
+
+
+================================================================================
+RECOMMENDATIONS
+================================================================================
+
+Based on LCOv: VERTICAL FARM is more cost-effective per kg
+
+Based on Annual Profit: VERTICAL FARM is more profitable overall
+
+Key Considerations:
+• VF requires 4.0x higher initial investment
+• VF produces 1.6x more output annually
+• VF operating costs are 0.8x TF costs per kg
+• Under pessimistic scenario, VF profit: 37.2M
+• Under pessimistic scenario, TF profit: 4.3M
+
+================================================================================
+END OF REPORT
+================================================================================

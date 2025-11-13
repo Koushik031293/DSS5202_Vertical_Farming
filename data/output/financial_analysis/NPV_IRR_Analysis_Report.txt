@@ -1,0 +1,62 @@
+================================================================================
+NPV, IRR, AND SENSITIVITY ANALYSIS REPORT
+Vertical Farming vs Traditional Greenhouse Farming
+================================================================================
+
+FINANCIAL SUMMARY
+================================================================================
+
+Vertical Farm:
+--------------------------------------------------------------------------------
+NPV (SGD)                                      515,204,640.85
+IRR (%)                                                116.59
+Simple Payback (years)                                   1.00
+Discounted Payback (years)                               1.00
+Profitability Index                                     11.41
+Initial Investment (SGD)                        49,500,000.00
+Total PV of Cash Flows (SGD)                   564,704,640.85
+Average Annual Cash Flow (SGD)                  57,568,250.00
+
+Traditional Farm:
+--------------------------------------------------------------------------------
+NPV (SGD)                                      102,512,453.85
+IRR (%)                                                109.50
+Simple Payback (years)                                   1.00
+Discounted Payback (years)                               1.00
+Profitability Index                                      9.33
+Initial Investment (SGD)                        12,300,000.00
+Total PV of Cash Flows (SGD)                   114,812,453.85
+Average Annual Cash Flow (SGD)                  13,439,666.67
+
+
+SENSITIVITY ANALYSIS RESULTS
+================================================================================
+
+Most Influential Parameters on NPV (±20% variation):
+--------------------------------------------------------------------------------
+
+Vertical Farm:
+1. Product Price                  Total Swing:     377.02M SGD
+2. Annual Output                  Total Swing:     226.65M SGD
+3. Opex Per Kg                    Total Swing:     150.37M SGD
+4. Discount Rate                  Total Swing:     139.80M SGD
+5. Initial Capex                  Total Swing:      19.16M SGD
+
+Traditional Farm:
+1. Product Price                  Total Swing:     154.07M SGD
+2. Opex Per Kg                    Total Swing:     107.95M SGD
+3. Annual Output                  Total Swing:      46.12M SGD
+4. Discount Rate                  Total Swing:      23.16M SGD
+5. Initial Capex                  Total Swing:       4.69M SGD
+
+
+INVESTMENT RECOMMENDATION
+================================================================================
+
+Vertical Farm: NOT RECOMMENDED at current parameters
+
+Traditional Farm: NOT RECOMMENDED at current parameters
+
+================================================================================
+END OF REPORT
+================================================================================
