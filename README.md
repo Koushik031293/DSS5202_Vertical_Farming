@@ -23,8 +23,8 @@ It produces impact assessment workbooks and multi-format visualizations directly
 │   └── output/
 │       ├── VF_LCIA_ready_multiimpact.xlsx
 │       └── TF_LCIA_ready_multiimpact.xlsx
-        ├── financial_analysis/
-        └── lcc_analysis/
+│       ├── financial_analysis/
+│        └── lcc_analysis/
 
 │
 ├── charts_both/                          # Output visualizations (auto-created)
